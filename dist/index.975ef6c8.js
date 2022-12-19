@@ -27745,42 +27745,66 @@ parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
+const API_ADDRESS = "https://spotify-api-wrapper.appspot.com";
 class App extends (0, _react.Component) {
     state = {
-        artistQuery: ""
+        artistQuery: "",
+        artist: null,
+        tracks: []
     };
     updateArtistQuery = (event)=>{
-        console.log("event", event);
+        this.setState({
+            artistQuery: event.target.value
+        });
+    };
+    handleKeyPress = (event)=>{
+        if (event.key === "Enter") this.searchArtist();
+    };
+    searchArtist = ()=>{
+        fetch(`${API_ADDRESS}/artist/${this.state.artistQuery}`).then((response)=>response.json()).then((json)=>{
+            if (json.artists.total > 0) {
+                const artist = json.artists.items[0];
+                this.setState({
+                    artist
+                });
+                fetch(`${API_ADDRESS}/artist/${artist.id}/top-tracks`).then((response)=>response.json()).then((json)=>this.setState({
+                        tracks: json.tracks
+                    })).catch((error)=>alert(error.message));
+            }
+        }).catch((error)=>alert(error.message));
     };
     render() {
+        console.log("this.state", this.state);
         return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             children: [
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
                     children: "Music Master"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 13,
+                    lineNumber: 45,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
                     onChange: this.updateArtistQuery,
+                    onKeyPress: this.handleKeyPress,
                     placeholder: "Search for an Artist"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 14,
+                    lineNumber: 46,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
+                    onClick: this.searchArtist,
                     children: "Search"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 18,
+                    lineNumber: 51,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/App.js",
-            lineNumber: 12,
+            lineNumber: 44,
             columnNumber: 7
         }, this);
     }
