@@ -27747,6 +27747,8 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _artist = require("./Artist");
 var _artistDefault = parcelHelpers.interopDefault(_artist);
+var _tracks = require("./Tracks");
+var _tracksDefault = parcelHelpers.interopDefault(_tracks);
 const API_ADDRESS = "https://spotify-api-wrapper.appspot.com";
 class App extends (0, _react.Component) {
     state = {
@@ -27783,7 +27785,7 @@ class App extends (0, _react.Component) {
                     children: "Music Master"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 46,
+                    lineNumber: 47,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27792,7 +27794,7 @@ class App extends (0, _react.Component) {
                     placeholder: "Search for an Artist"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 47,
+                    lineNumber: 48,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27800,20 +27802,27 @@ class App extends (0, _react.Component) {
                     children: "Search"
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 52,
+                    lineNumber: 53,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _artistDefault.default), {
                     artist: this.state.artist
                 }, void 0, false, {
                     fileName: "src/components/App.js",
-                    lineNumber: 53,
+                    lineNumber: 54,
+                    columnNumber: 9
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _tracksDefault.default), {
+                    tracks: this.state.tracks
+                }, void 0, false, {
+                    fileName: "src/components/App.js",
+                    lineNumber: 55,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/components/App.js",
-            lineNumber: 45,
+            lineNumber: 46,
             columnNumber: 7
         }, this);
     }
@@ -27825,7 +27834,7 @@ exports.default = App;
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Artist":"2Dz6G","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2Dz6G":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./Artist":"2Dz6G","./Tracks":"h8ijL","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"2Dz6G":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$6250 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27890,6 +27899,83 @@ var _c;
 $RefreshReg$(_c, "Artist");
 
   $parcel$ReactRefreshHelpers$6250.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"h8ijL":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5c92 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5c92.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+class Tracks extends (0, _react.Component) {
+    state = {
+        playing: false,
+        audio: null,
+        playingPreviewUrl: null
+    };
+    playAudio = (previewUrl)=>()=>{
+            const audio = new Audio(previewUrl);
+            if (!this.state.playing) {
+                audio.play();
+                this.setState({
+                    playing: true,
+                    audio
+                });
+            } else {
+                this.state.audio.pause();
+                this.setState({
+                    playing: false
+                });
+            }
+        };
+    render() {
+        const { tracks  } = this.props;
+        return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            children: tracks.map((track)=>{
+                const { id , name , album , preview_url  } = track;
+                return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                    onClick: this.playAudio(preview_url),
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                            src: album.images[0].url,
+                            alt: "trackimage"
+                        }, void 0, false, {
+                            fileName: "src/components/Tracks.js",
+                            lineNumber: 30,
+                            columnNumber: 33
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
+                            children: name
+                        }, void 0, false, {
+                            fileName: "src/components/Tracks.js",
+                            lineNumber: 31,
+                            columnNumber: 33
+                        }, this)
+                    ]
+                }, id, true, {
+                    fileName: "src/components/Tracks.js",
+                    lineNumber: 29,
+                    columnNumber: 29
+                }, this);
+            })
+        }, void 0, false, {
+            fileName: "src/components/Tracks.js",
+            lineNumber: 23,
+            columnNumber: 13
+        }, this);
+    }
+}
+exports.default = Tracks;
+
+  $parcel$ReactRefreshHelpers$5c92.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
